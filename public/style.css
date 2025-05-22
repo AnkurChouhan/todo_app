@@ -1,81 +1,171 @@
+/* Enhanced body & container */
 body {
-    font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background: #f4f4f4;
-    color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 48rem; /* slightly wider */
+  margin: 3rem auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  color: #222;
+}
+
+/* Card effect for sections */
+section {
+  background: white;
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+section:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+/* Header & footer styling */
+header, footer {
+  text-align: center;
+  background: #3f51b5;
+  color: white;
+  padding: 2rem 1rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(63,81,181,0.4);
+  margin-bottom: 2rem;
+}
+
+h1 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 2.75rem;
+  letter-spacing: 1.25px;
+  text-transform: uppercase;
+}
+
+/* Form layout improvements */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Inputs */
+input[type="text"], select {
+  flex: 1 1 60%;
+  padding: 0.85rem 1rem;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, select:focus {
+  border-color: #3f51b5;
+  outline: none;
+}
+
+/* Buttons */
+button {
+  flex: 1 1 15%;
+  padding: 0.85rem 0;
+  font-size: 1.15rem;
+  border-radius: 12px;
+  border: none;
+  background-color: #b53f3f;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(181, 63, 63, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background-color: #9f3030;
+  box-shadow: 0 6px 16px rgba(159, 48, 48, 0.5);
+}
+
+/* Links */
+a {
+  flex: 1 1 100%;
+  text-align: center;
+  color: #3f51b5;
+  font-weight: 700;
+  margin-top: 1rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #303f9f;
+  text-decoration: underline;
+}
+
+/* Todo list items */
+.todo-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-list li {
+  background: #fafafa;
+  border-left: 6px solid #ff0000;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  transition: background-color 0.3s ease;
+}
+
+.todo-list li:hover {
+  background-color: #e3e9ff;
+}
+
+.todo-list strong {
+  font-size: 1.1rem;
+}
+
+.todo-list em {
+  font-size: 0.9rem;
+  color: #666;
+  margin-left: 1rem;
+}
+
+/* Alert messages */
+.alert {
+  background: #e74c3c;
+  color: white;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.8px;
+}
+
+/* Footer */
+footer p {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  input[type="text"], select, button {
+    flex: 1 1 100%;
   }
-  
-  header, footer {
-    text-align: center;
-    background: #222;
-    color: #fff;
-    padding: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .todo-create form,
-  .todo-list ul {
-    margin-bottom: 1rem;
-  }
-  
-  .todo-create input[type="text"],
-  .todo-create select,
-  .todo-create button {
-    padding: 0.5rem;
-    font-size: 1rem;
-  }
-  
-  .todo-create input[type="text"] {
-    width: 60%;
-  }
-  
-  .todo-create select {
-    width: 20%;
-  }
-  
-  .todo-create button {
-    width: 15%;
-    cursor: pointer;
-  }
-  
-  .todo-list ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
+
   .todo-list li {
-    background: #fff;
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .todo-list li em {
-    margin-left: 0.5rem;
-    color: #666;
+
+  .todo-list a, .todo-list form {
+    margin-top: 0.5rem;
   }
-  
-  .todo-list li a {
-    margin-right: 1rem;
-    color: #0066cc;
-    text-decoration: none;
-  }
-  
-  .todo-list li form {
-    margin: 0;
-  }
-  
-  .alert {
-    background: #e74c3c;
-    color: white;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border-radius: 5px;
-    text-align: center;
-  }
-  
+}
