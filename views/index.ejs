@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Todo List</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Todo List</h1>
+    <form method="GET" action="/">
+      <label for="filter">Filter by Priority:</label>
+      <select name="filter" id="filter" onchange="this.form.submit()">
+        <option value="" <%= !filter ? 'selected' : '' %>>All</option>
+        <option value="High" <%= filter === 'High' ? 'selected' : '' %>>High</option>
+        <option value="Medium" <%= filter === 'Medium' ? 'selected' : '' %>>Medium</option>
+        <option value="Low" <%= filter === 'Low' ? 'selected' : '' %>>Low</option>
+      </select>
+    </form>
+  </header>
+
+  <% if (alert === 'empty') { %>
+    <div class="alert">Task cannot be empty!</div>
+  <% } %>
+
+  <section class="todo-create">
+    <form method="POST" action="/todos" onsubmit="return validateAddForm()">
+      <input type="text" name="task" id="task" placeholder="Enter todo task..." />
+      <select name="priority" id="priority">
+        <option value="High">High</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="Low">Low</option>
+      </select>
+      <button type="submit">Add</button>
+    </form>
+  </section>
+
+  <section class="todo-list">
+    <% if (todos.length === 0) { %>
+      <p>No todos found.</p>
+    <% } else { %>
+      <ul>
+        <% todos.forEach(todo => { %>
+          <li>
+            <strong><%= todo.task %></strong> 
+            <em>(<%= todo.priority %>)</em>
+            <a href="/todos/<%= todo.id %>/edit">Edit</a>
+            <form method="POST" action="/todos/<%= todo.id %>?_method=DELETE" style="display:inline" onsubmit="return confirm('Delete this task?')">
+              <button type="submit">Delete</button>
+            </form>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </section>
+
+  <footer>
+    <p>© 2025 Todo App</p>
+  </footer>
+
+  <script>
+    function validateAddForm() {
+      const task = document.getElementById('task').value.trim();
+      if (!task) {
+        alert('Task cannot be empty!');
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit Todo</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Edit Todo</h1>
+  </header>
+
+  <% if (alert === 'empty') { %>
+    <div class="alert">Task cannot be empty!</div>
+  <% } %>
+
+  <section>
+    <form method="POST" action="/todos/<%= todo.id %>?_method=PUT" onsubmit="return validateEditForm()">
+      <input type="text" name="task" id="task" value="<%= todo.task %>" />
+      <select name="priority" id="priority">
+        <option value="High" <%= todo.priority === 'High' ? 'selected' : '' %>>High</option>
+        <option value="Medium" <%= todo.priority === 'Medium' ? 'selected' : '' %>>Medium</option>
+        <option value="Low" <%= todo.priority === 'Low' ? 'selected' : '' %>>Low</option>
+      </select>
+      <button type="submit">Update</button>
+      <a href="/">Cancel</a>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 Todo App</p>
+  </footer>
+
+  <script>
+    function validateEditForm() {
+      const task = document.getElementById('task').value.trim();
+      if (!task) {
+        alert('Task cannot be empty!');
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>

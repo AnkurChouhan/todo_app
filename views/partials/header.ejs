@@ -1,0 +1,15 @@
+<header>
+    <h1>Todo List</h1>
+    <nav>
+      <form method="GET" action="/">
+        <label for="filter">Filter by Priority:</label>
+        <select name="filter" id="filter" onchange="this.form.submit()">
+          <option value="" <%= !filter ? 'selected' : '' %>>All</option>
+          <option value="High" <%= filter === 'High' ? 'selected' : '' %>>High</option>
+          <option value="Medium" <%= filter === 'Medium' ? 'selected' : '' %>>Medium</option>
+          <option value="Low" <%= filter === 'Low' ? 'selected' : '' %>>Low</option>
+        </select>
+      </form>
+    </nav>
+  </header>
+  
