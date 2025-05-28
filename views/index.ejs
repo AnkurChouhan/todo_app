@@ -3,7 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <title>Todo List</title>
-  <link rel="stylesheet" href="/style.css" /></head>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .edit-btn {
+      cursor: pointer;
+      border: none;
+      background: transparent;
+    }
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 8px;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
 <body>
   <header>
     <h1>Todo List</h1>
@@ -20,6 +35,8 @@
 
   <% if (alert === 'empty') { %>
     <div class="alert">Task cannot be empty!</div>
+  <% } else if (alert === 'updated') { %>
+    <div class="alert-success">Task updated successfully!</div>
   <% } %>
 
   <section class="todo-create">
@@ -40,11 +57,20 @@
     <% } else { %>
       <ul>
         <% todos.forEach(todo => { %>
-          <li>
-            <strong><%= todo.task %></strong> 
-            <em>(<%= todo.priority %>)</em>
-            <a href="/todos/<%= todo.id %>/edit">Edit</a>
-            <form method="POST" action="/todos/<%= todo.id %>?_method=DELETE" style="display:inline" onsubmit="return confirm('Delete this task?')">
+          <li data-id="<%= todo.id %>">
+            <form class="edit-form" method="POST" action="/todos/<%= todo.id %>?_method=PUT" style="display:inline;">
+              <input type="text" name="task" value="<%= todo.task %>" readonly />
+              <select name="priority" disabled>
+                <option value="High" <%= todo.priority === 'High' ? 'selected' : '' %>>High</option>
+                <option value="Medium" <%= todo.priority === 'Medium' ? 'selected' : '' %>>Medium</option>
+                <option value="Low" <%= todo.priority === 'Low' ? 'selected' : '' %>>Low</option>
+              </select>
+              <button type="submit" class="save-btn" style="display:none;">Save</button>
+            </form>
+            <button class="edit-btn" onclick="enableEdit(this)">
+              ✏️
+            </button>
+            <form method="POST" action="/todos/<%= todo.id %>?_method=DELETE" style="display:inline;" onsubmit="return confirm('Delete this task?')">
               <button type="submit">Delete</button>
             </form>
           </li>
@@ -65,6 +91,20 @@
         return false;
       }
       return true;
+    }
+
+    function enableEdit(button) {
+      const li = button.closest('li');
+      const form = li.querySelector('.edit-form');
+      const taskInput = form.querySelector('input[name="task"]');
+      const prioritySelect = form.querySelector('select[name="priority"]');
+      const saveBtn = form.querySelector('.save-btn');
+
+      taskInput.removeAttribute('readonly');
+      prioritySelect.removeAttribute('disabled');
+      saveBtn.style.display = 'inline';
+
+      taskInput.focus();
     }
   </script>
 </body>
